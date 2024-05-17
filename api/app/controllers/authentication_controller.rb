@@ -18,7 +18,7 @@ class AuthenticationController < ApplicationController
       # Call the private method to log in the user after signing up
       render_login_response(@user)
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -29,14 +29,20 @@ class AuthenticationController < ApplicationController
   end
 
   def signup_params
-    params.permit(:name, :profile, :email, :password, :bio)
+    params.permit(:name, :profile, :email, :password,:password_confirmation, :bio)
   end
 
   def render_login_response(user)
     token = JsonWebToken.encode(user_id: user.id)
     time = Time.now + 24.hours.to_i
-    render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
-                   name: user.name,
-                   id: user.id }, status: :ok
+    render json: {
+                   user:{
+                    token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
+                    id: user.id,
+                    name: user.name,
+                    email:user.email,
+                    bio: user.bio || '',
+                   },
+                   status: :ok}
   end
 end

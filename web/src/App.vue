@@ -10,7 +10,7 @@ const Auth = reactive({
   data: localStorage.getItem("user") ? true : false,
 });
 onMounted(() => {
-  console.log("hello");
+  // console.log("hello");
 });
 </script>
 
