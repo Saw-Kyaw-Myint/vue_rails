@@ -11,7 +11,7 @@
                     <div class="lright-menu">
                         <div class="login-hright">
                             <h1>
-                                <RouterLink to="/"><img src="../assets/template/logo.png" alt="">
+                                <RouterLink to="/"><img src="../assets/template/logo.png" alt="" />
                                 </RouterLink>
                             </h1>
                             <div class="input-group">
@@ -21,21 +21,19 @@
                                         fill="currentColor"></path>
                                 </svg>
                                 <form @submit.prevent="postSearch" method="get" class="search-form">
-                                    <input type="text" class="search" placeholder="Search Medium" v-model="searchVal">
+                                    <input type="text" class="search" placeholder="Search Medium" v-model="searchVal" />
                                 </form>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="left-aside">
-
                         <nav id="global-navi">
                             <ul class="menu">
                                 <router-link to="/post/create">
                                     <li class="left-write">
                                         <a href="{{ route('post.create') }}" class="write-link">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Write">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                aria-label="Write">
                                                 <path
                                                     d="M14 4a.5.5 0 0 0 0-1v1zm7 6a.5.5 0 0 0-1 0h1zm-7-7H4v1h10V3zM3 4v16h1V4H3zm1 17h16v-1H4v1zm17-1V10h-1v10h1zm-1 1a1 1 0 0 0 1-1h-1v1zM3 20a1 1 0 0 0 1 1v-1H3zM4 3a1 1 0 0 0-1 1h1V3z"
                                                     fill="currentColor"></path>
@@ -49,7 +47,7 @@
                                 <li class="menu-toggle" @click="slideBoard">
                                     <div class="select-box">
                                         <div class="small-menu">
-                                            <img :src="url + user.profile" alt="">
+                                            <img :src="url + user.profile" alt="" />
                                             <p class="down-icon">
                                                 <svg width="12px" height="12px" viewBox="0 0 15 15">
                                                     <path
@@ -61,22 +59,26 @@
                                     </div>
                                 </li>
                                 <div class="custom-dashboard">
-                                    <p><router-link :to="{ name: 'profile', params: { id: user?.id } }"
+                                    <p>
+                                        <router-link :to="{ name: 'profile', params: { id: user?.id } }"
                                             @click="customBoard = false"><svg width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" aria-label="Profile">
-                                                <circle cx="12" cy="7" r="4.5" stroke="currentColor">
-                                                </circle>
+                                                <circle cx="12" cy="7" r="4.5" stroke="currentColor"></circle>
                                                 <path d="M3.5 21.5v-4.34C3.5 15.4 7.3 14 12 14s8.5 1.41 8.5 3.16v4.34"
                                                     stroke="currentColor" stroke-linecap="round"></path>
-                                            </svg> profile</router-link></p>
-                                    <p><router-link to="/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            </svg>
+                                            profile</router-link>
+                                    </p>
+                                    <p>
+                                        <router-link to="/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 aria-label="Lists">
                                                 <path
                                                     d="M6.44 6.69h0a1.5 1.5 0 0 1 1.06-.44h9c.4 0 .78.16 1.06.44l.35-.35-.35.35c.28.28.44.66.44 1.06v14l-5.7-4.4-.3-.23-.3.23-5.7 4.4v-14c0-.4.16-.78.44-1.06z"
                                                     stroke="currentColor"></path>
                                                 <path d="M12.5 2.75h-8a2 2 0 0 0-2 2v11.5" stroke="currentColor"
                                                     stroke-linecap="round"></path>
-                                            </svg>post list</router-link></p>
+                                            </svg>post list</router-link>
+                                    </p>
 
                                     <p class="custom-logout">
                                         <svg width="28" height="29" viewBox="0 0 28 29" fill="none" class="ih y">
@@ -90,15 +92,14 @@
                                             </g>
                                             <defs>
                                                 <clipPath id="trending_svg__clip0">
-                                                    <path fill="#fff" transform="translate(4 4.8)" d="M0 0h20v20H0z"></path>
+                                                    <path fill="#fff" transform="translate(4 4.8)" d="M0 0h20v20H0z">
+                                                    </path>
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <button @click="logout"> logout</button>
+                                        <button @click="logout">logout</button>
                                     </p>
-
                                 </div>
-
                             </ul>
                         </nav>
                     </div>
@@ -109,69 +110,72 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
-import { useRouter } from 'vue-router';
-import $ from 'jquery';
-import axios from 'axios';
+import { ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
+import $ from "jquery";
+import axios from "axios";
 
 const router = useRouter();
 const searchVal = ref();
 const customBoard = ref(false);
 const user = ref();
 const btnGnavi = ref();
-const url = ref('http://127.0.0.1:8000/storage/');
+const url = ref("http://127.0.0.1:8000/storage/");
 
 watchEffect(() => {
-    const token = localStorage.getItem('token');
-    axios.get('http://127.0.0.1:8000/api/user', {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
-
-    });
-    user.value = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem("token");
+    axios
+        .get("http://127.0.0.1:8000/api/user", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((response) => {
+            localStorage.setItem("user", JSON.stringify(response.data));
+        });
+    user.value = JSON.parse(localStorage.getItem("user"));
 });
 
 //slide custom board
 const slideBoard = () => {
-    $('.custom-dashboard').slideToggle();
-}
+    $(".custom-dashboard").slideToggle();
+};
 
 //search post
 const postSearch = () => {
-    if (searchVal.value.trim() !== '') {
-        router.push({ name: 'home', query: { q: searchVal.value } });
-        searchVal.value = ''
+    if (searchVal.value.trim() !== "") {
+        router.push({ name: "home", query: { q: searchVal.value } });
+        searchVal.value = "";
     } else {
-        router.push({ name: 'home' })
+        router.push({ name: "home" });
     }
-}
+};
 
 //logout
-const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.setItem('auth', true)
 
-    router.push({ name: 'login' });
-}
+const logout = async () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.setItem("auth", false);
+    router.push({ name: "login" });
+};
 
 //show Navbar
 const showNav = () => {
     var rightVal = 0;
-    if ($('.btn-gnavi').hasClass('hb-open')) {
+    if ($(".btn-gnavi").hasClass("hb-open")) {
         rightVal = -500;
-        $('.btn-gnavi').removeClass('hb-open');
+        $(".btn-gnavi").removeClass("hb-open");
     } else {
-        $('.btn-gnavi').addClass('hb-open');
+        $(".btn-gnavi").addClass("hb-open");
     }
-    $('#global-navi').stop().animate({
-        top: rightVal
-    }, 500);
-}
-
+    $("#global-navi").stop().animate(
+        {
+            top: rightVal,
+        },
+        500
+    );
+};
 </script>
 
 <style scoped>
@@ -189,7 +193,6 @@ h1 {
 .write-link {
     display: flex;
     align-items: center;
-
 }
 
 /* custom select    */
@@ -250,7 +253,6 @@ select option .gugu {
     border-radius: 50% !important;
 }
 
-
 .input-group {
     align-items: center;
     display: flex !important;
@@ -266,7 +268,6 @@ select option .gugu {
 .input-group i {
     margin: 10px;
 }
-
 
 .language-change {
     margin-right: 10px;
@@ -300,7 +301,6 @@ ul li a {
     color: #0c0b0b;
     margin-right: 10px;
 }
-
 
 .custom-logout button {
     border: none;
@@ -420,7 +420,6 @@ ul li {
 }
 
 @media screen and (max-width: 640px) {
-
     @keyframes active-menu-bar02 {
         100% {
             height: 0;
@@ -447,8 +446,6 @@ ul li {
         z-index: 2;
         width: 100%;
     }
-
-
 
     .input-group {
         display: flex;
@@ -524,7 +521,7 @@ ul li {
     .btn-gnavi span {
         display: inline-block;
         box-sizing: border-box;
-        transition: all .4s;
+        transition: all 0.4s;
     }
 
     .custom-dashboard p {
@@ -533,7 +530,6 @@ ul li {
         padding: -10px;
         padding: 0 10px;
         text-align: center;
-
     }
 
     header .btn-gnavi {
@@ -552,7 +548,6 @@ ul li {
     }
 
     header .btn-gnavi span {
-
         position: absolute;
         left: 0;
         width: 4.688vw;
@@ -577,7 +572,6 @@ ul li {
 
     header .btn-gnavi span:nth-child(1) {
         top: 0vw;
-
     }
 
     header .btn-gnavi span:nth-child(2) {
@@ -585,18 +579,15 @@ ul li {
     }
 
     header .btn-gnavi span:nth-child(3) {
-
         bottom: 0;
     }
 
     .btn-gnavi.hb-open {
-
         margin-top: 2.344vw;
     }
 
     .btn-gnavi.hb-open span {
         background-color: #040000;
-
     }
 
     .btn-gnavi.hb-open span:nth-of-type(1) {
@@ -604,13 +595,11 @@ ul li {
     }
 
     .btn-gnavi.hb-open span:nth-of-type(2) {
-        animation: active-menu-bar02 .4s forwards;
+        animation: active-menu-bar02 0.4s forwards;
     }
 
     .btn-gnavi.hb-open span:nth-of-type(3) {
         transform: translateY(-3.125vw) rotate(45deg);
-
     }
-
 }
 </style>

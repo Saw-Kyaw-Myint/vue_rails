@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <div class="login-form">
-      <p class="error-message text-align-center" v-if="error">{{ error }}</p>
       <h2>Login</h2>
+      <p class="error-message">
+        {{ errors?.unauthorized ?? "" }}
+      </p>
 
       <form @submit.prevent="login">
         <div class="form-group">
@@ -54,9 +56,10 @@ const Auth = ref("");
 //login method
 const login = async () => {
   await axios
-    .post(`${import.meta.env.VITE_PUBLIC_API_URL}/api/login`, form)
+    .post(`${import.meta.env.VITE_PUBLIC_API_URL}/auth/login`, form)
     .then((res) => {
-      if (res.data.success) {
+      console.log("res", res);
+      if (res.status == 200) {
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -68,30 +71,20 @@ const login = async () => {
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
         });
-
         Toast.fire({
           icon: "success",
           title: "login is successfully",
         });
-
-        localStorage.setItem("token", res.data.token);
-        const token = localStorage.getItem("token");
-        axios
-          .get("http://127.0.0.1:8000/api/user", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((response) => {
-            localStorage.setItem("user", JSON.stringify(response.data));
-            localStorage.setItem("auth", true);
-            router.push({ name: "home" });
-          });
+        localStorage.setItem("token", res.data.user.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("auth", true);
+        router.push({ name: "home" });
       } else {
         error.value = res.data.message;
       }
     })
     .catch(function (error) {
+      console.log(error);
       errors.value = error.response.data.errors;
     });
 };
