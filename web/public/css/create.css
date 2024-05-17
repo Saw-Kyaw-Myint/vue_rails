@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Sofia+Sans+Condensed&display=swap');
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+    box-sizing: border-box;
+    border: none;
+    font-size: 100%;
+    margin-top: 8px !important;
+    padding: 0;
+    padding-left: 5px !important;
+}
+
+.select-dropdown {
+    background-color: blue !important;
+}
+
+#output {
+    width: 130px;
+    height: 130px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 15px;
+}
+.select2-container {
+    width: 100%;
+}
+.post-whole {
+    margin: 111px;
+    margin-top: 100px;
+    padding: 37px;
+    border: 2px solid rgb(178 178 178);
+    border-radius: 10px;
+}
+
+.multiSelect {
+    position: relative;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.multiSelect *,
+.multiSelect *::before,
+.multiSelect *::after {
+    box-sizing: border-box;
+}
+
+.multiSelect_dropdown {
+    line-height: 35px;
+    margin: 0;
+    padding: 0.5px 13px;
+    border: 1px solid #d9dbde;
+    box-shadow: none;
+    background-color: #fff;
+    color: #444f5b;
+    font-size: 14px;
+    font-weight: 400;
+    outline: none;
+    cursor: pointer;
+    transition: .1s border-color ease-in-out;
+    min-height: 35px;
+    border-radius: 4px;
+}
+
+.multiSelect_dropdown.-hasValue {
+    padding: 5px 30px 5px 5px;
+    cursor: default;
+}
+
+.multiSelect_dropdown.-open {
+    padding: 4.5px 29.5px 4.5px 4.5px;
+    border: 1.5px solid #4073FF;
+    box-shadow: none;
+    outline: none;
+}
+
+.multiSelect_arrow::before,
+.multiSelect_arrow::after {
+    display: block;
+    position: absolute;
+    top: 40%;
+    width: 2px;
+    height: 8px;
+    content: '';
+    transition: all .15s ease;
+    border-radius: 20px;
+    border-bottom: 8px solid #99A3BA;
+}
+
+
+.wrapper {
+    max-width: 75%;
+    margin: auto;
+}
+
+h3 {
+    color: #000000;
+    margin: 40px 0;
+    padding: 0;
+    font-size: 28px;
+    text-align: center;
+}
+
+select {
+    width: 100%;
+    min-height: 100px;
+    border-radius: 3px;
+    border: 1px solid #444;
+    padding: 10px;
+    color: #444444;
+    font-size: 14px;
+}
+
+.multiSelect_arrow::before {
+    right: 18px;
+    -webkit-transform: rotate(-50deg);
+    transform: rotate(-50deg);
+}
+
+.multiSelect_arrow::after {
+    right: 13px;
+    -webkit-transform: rotate(50deg);
+    transform: rotate(50deg);
+}
+
+.multiSelect_list {
+    position: absolute;
+    top: 28px;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    list-style: none;
+    visibility: hidden;
+    margin: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    border: 1px solid #d9dbde;
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
+    background: #fff;
+    -webkit-transform: scale(0.8) translate(0, 4px);
+    transform: scale(0.8) translate(0, 4px);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transition: opacity 0.1s ease, visibility 0.1s ease, -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32), -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    opacity: 0;
+    max-height: calc(10 * 31px);
+    border-radius: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.multiSelect_option {
+    margin: 0;
+    padding: 0;
+    -webkit-transform: translate(6px, 0);
+    transform: translate(6px, 0);
+    transition: all .15s ease;
+    opacity: 0;
+}
+
+.multiSelect_option.-selected {
+    display: none;
+}
+
+.multiSelect_option:hover .multiSelect_text {
+    background: #4d84fe;
+    color: #fff;
+}
+
+.multiSelect_text {
+    display: block;
+    position: relative;
+    padding: 5px 13px;
+    color: #525c67;
+    font-size: 14px;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    transition: all .15s ease;
+}
+
+.multiSelect_list.-open {
+    visibility: visible;
+    -webkit-transform: scale(1) translate(0, 12px);
+    transform: scale(1) translate(0, 12px);
+    transition: opacity 0.15s ease, visibility 0.15s ease, -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32), -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    opacity: 1;
+}
+
+.multiSelect_list.-open+.multiSelect_arrow::before {
+    -webkit-transform: rotate(-130deg);
+    transform: rotate(-130deg);
+}
+
+.multiSelect_list.-open+.multiSelect_arrow::after {
+    -webkit-transform: rotate(130deg);
+    transform: rotate(130deg);
+}
+
+.multiSelect_list.-open .multiSelect_option {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(1) {
+    transition-delay: 10ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(2) {
+    transition-delay: 20ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(3) {
+    transition-delay: 30ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(4) {
+    transition-delay: 40ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(5) {
+    transition-delay: 50ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(6) {
+    transition-delay: 60ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(7) {
+    transition-delay: 70ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(8) {
+    transition-delay: 80ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(9) {
+    transition-delay: 90ms;
+}
+
+.multiSelect_list.-open .multiSelect_option:nth-child(10) {
+    transition-delay: 100ms;
+}
+
+.multiSelect_choice {
+    display: inline-block;
+    line-height: 17px;
+    margin: 5px;
+    padding: 4px 8px;
+    background: rgba(77, 132, 254, 0.1);
+    color: #444f5b;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.multiSelect_deselect {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-top: -1px;
+    margin-left: 2px;
+    vertical-align: middle;
+    stroke: #b2bac3;
+    stroke-width: 4px;
+}
+
+.multiSelect_choice:hover .multiSelect_deselect {
+    stroke: #a1a8b1;
+}
+
+.multiSelect_noselections {
+    margin: 0;
+    padding: 7px;
+    color: #b2bac3;
+    font-weight: 450;
+    text-align: center;
+}
+
+.multiSelect_placeholder {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    padding: 0 4px;
+    background-color: #fff;
+    color: #b8bcbf;
+    font-size: 14px;
+    transition: all .1s ease;
+    pointer-events: none;
+}
+
+.multiSelect_dropdown.-open+.multiSelect_placeholder,
+.multiSelect_dropdown.-open.-hasValue+.multiSelect_placeholder {
+    top: -11px;
+    left: 17px;
+    color: #4073FF;
+    font-size: 13px;
+}
+
+.multiSelect_dropdown.-hasValue+.multiSelect_placeholder {
+    top: -11px;
+    left: 17px;
+    color: #6e7277;
+    font-size: 13px;
+}
+
+.post-whole h2 {
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+form input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgb(82, 82, 82);
+    outline: none;
+    border-radius: 5px;
+}
+
+select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+option {
+    font-size: 13px;
+    border-radius: px;
+}
+
+.description {
+    margin-bottom: 10px;
+}
+
+.publish {
+    padding: 8px 15px;
+    border: none;
+    background-color: rgb(178 178 178);
+    color: #fff;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width:768px) {
+    .container {
+        width: auto;
+        padding: 0 5.208vw;
+    }
+
+    .post-whole {
+        margin: 3.906vw;
+        margin-top: 5.859vw;
+        padding: 4.427vw;
+        border: 0.26vw solid rgb(178 178 178);
+        border-radius: 1.042vw;
+    }
+
+    .post-whole h2 {
+        margin-bottom: 2.474vw;
+        font-size: 3.385vw;
+    }
+
+    form input {
+        width: 100%;
+        margin-bottom: 1.042vw;
+        padding: 0.651vw;
+        outline: none;
+        border-radius: 0.651vw;
+    }
+
+    select {
+        width: 100%;
+        margin-bottom: 1.042vw;
+        padding: 0.651vw;
+        border-radius: 0.651vw;
+    }
+
+    option {
+        font-size: 1.042vw;
+        border-radius: 0.651vw px;
+    }
+
+    .description {
+        margin-bottom: 1.042vw;
+    }
+
+    .publish {
+        padding: 0.781vw 1.693vw;
+        border: none;
+        background-color: rgb(178 178 178);
+        color: #fff;
+        font-size: 1.693vw;
+        border-radius: 0.521vw;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .container {
+        width: auto;
+        padding: 0 40px;
+    }
+
+    #output {
+        width: 130.003px;
+        height: 130.003px;
+        margin: 10.003px 0;
+        border-radius: 10.003px;
+    }
+
+    .post-whole {
+        margin: 27.002px;
+        margin-top: 50.003px;
+        margin-top: 120px;
+        padding: 20px;
+        border: 2.003px solid rgb(178 178 178);
+        border-radius: 6.003px;
+    }
+
+    .post-whole h2 {
+        margin-bottom: 15.002px;
+        font-size: 24px;
+    }
+
+    form input {
+        width: 100%;
+        margin-bottom: 6.003px;
+        padding: 4.998px;
+        outline: none;
+        border-radius: 4px;
+    }
+
+    select {
+        width: 100%;
+        margin-bottom: 6.003px;
+        padding: 4.998px;
+        border-radius: 4px;
+    }
+
+    option {
+        font-size: 6.003px;
+        border-radius: 4px px;
+    }
+
+    .description {
+        margin-bottom: 6.003px;
+    }
+
+    .error-message {
+        font-size: 2.344vw;
+    }
+
+    .publish {
+        padding: 4.998px 12px;
+        border: none;
+        background-color: rgb(178 178 178);
+        color: #fff;
+        font-size: 11.002px;
+        border-radius: 3.002px;
+    }
+}
