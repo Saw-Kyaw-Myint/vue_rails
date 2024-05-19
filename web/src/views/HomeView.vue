@@ -56,4 +56,5 @@ a {
 
 .active .page-link {
   color: white;
-}</style>
+}
+</style>

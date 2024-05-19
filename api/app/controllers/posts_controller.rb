@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
 
-    render json: @posts
+    render json: @posts, status: :ok
   end
 
   # GET /posts/1
@@ -35,7 +35,9 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
-    @post.destroy!
+   if @post.destroy!
+    render json:{'message':'Post is deleted successfuly.'},status: :ok
+   end
   end
 
   private
