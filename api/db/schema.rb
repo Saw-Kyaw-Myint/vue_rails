@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_17_064051) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_20_034840) do
+  create_table "personal_access_tokens", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "user_id"
+    t.string "token"
+    t.timestamp "last_used_at"
+    t.timestamp "expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.string "category_id"

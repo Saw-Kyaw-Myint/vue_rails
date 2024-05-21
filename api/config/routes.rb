@@ -14,12 +14,13 @@ Rails.application.routes.draw do
     get 'users', to: 'users#index', as: 'api_users'
     get 'users/:id', to: 'users#show', as: 'api_user'
     post 'users', to: 'users#create'
-    patch 'users/:id', to: 'users#update'
-    put 'users/:id', to: 'users#update'
-    delete 'users/:id', to: 'users#destroy'
+      patch 'users/:id', to: 'users#update'
+      put 'users/:id', to: 'users#update'
+      delete 'users/:id', to: 'users#destroy'
 
-    post '/auth/signup', to: 'authentication#signup'
+      post '/auth/signup', to: 'authentication#signup'
     post '/auth/login', to: 'authentication#login'
     get '/*a', to: 'application#not_found'
+    delete 'auth/logout/:id', to:  'authentication#logout'
   end
 end

@@ -154,10 +154,23 @@ const postSearch = () => {
 //logout
 
 const logout = async () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.setItem("auth", false);
-    router.push({ name: "login" });
+    const user =JSON.parse(localStorage.getItem('user'));
+    console.log(user)
+    await axios.delete(`${import.meta.env.VITE_PUBLIC_API_URL}/auth/logout/${user.id}`,
+       {
+        headers: {
+           'Authorization': user.token
+        }
+    }
+    ).then(response=>{
+      console.log('response',response)
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.setItem("auth", false);
+      router.push({ name: "login" });
+    }).catch(error =>{
+     console.error(error)
+    })
 };
 
 //show Navbar
