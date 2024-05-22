@@ -47,7 +47,7 @@
                                 <li class="menu-toggle" @click="slideBoard">
                                     <div class="select-box">
                                         <div class="small-menu">
-                                            <img :src="url + user.profile" alt="" />
+                                            <!-- <img :src="url + user.profile" alt="" /> -->
                                             <p class="down-icon">
                                                 <svg width="12px" height="12px" viewBox="0 0 15 15">
                                                     <path
@@ -60,14 +60,14 @@
                                 </li>
                                 <div class="custom-dashboard">
                                     <p>
-                                        <router-link :to="{ name: 'profile', params: { id: user?.id } }"
+                                        <!-- <router-link :to="{ name: 'profile', params: { id: user?.id } }"
                                             @click="customBoard = false"><svg width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" aria-label="Profile">
                                                 <circle cx="12" cy="7" r="4.5" stroke="currentColor"></circle>
                                                 <path d="M3.5 21.5v-4.34C3.5 15.4 7.3 14 12 14s8.5 1.41 8.5 3.16v4.34"
                                                     stroke="currentColor" stroke-linecap="round"></path>
                                             </svg>
-                                            profile</router-link>
+                                            profile</router-link> -->
                                     </p>
                                     <p>
                                         <router-link to="/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -123,17 +123,18 @@ const btnGnavi = ref();
 const url = ref("http://127.0.0.1:8000/storage/");
 
 watchEffect(() => {
-    const token = localStorage.getItem("token");
-    axios
-        .get("http://127.0.0.1:8000/api/user", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((response) => {
-            localStorage.setItem("user", JSON.stringify(response.data));
-        });
-    user.value = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token=user.token
+    // axios
+    //     .get(`${import.meta.env.VITE_PUBLIC_API_URL}/user/${user.id}`, {
+    //         headers: {
+    //             Authorization: `${token}`,
+    //         },
+    //     })
+    //     .then((response) => {
+    //         localStorage.setItem("user", JSON.stringify(response.data));
+    //     });
+    user.value = JSON.parse(localStorage.getItem("user")) ?? '';
 });
 
 //slide custom board

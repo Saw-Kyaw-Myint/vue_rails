@@ -8,14 +8,19 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require 'faker'
+require "faker"
 
+10.times do
+  Category.create(
+    title: Faker::Device.manufacturer,
+  )
+end
 # Seed fake users
 10.times do
   Post.create(
     title: Faker::Name.name,
     category_id: Faker::Types.rb_integer,
-    image: 'https://i.pinimg.com/736x/7a/b5/72/7ab572863e511fdec78582522d7e821c.jpg',
-    description:Faker::Lorem.paragraph
+    image: "https://i.pinimg.com/736x/7a/b5/72/7ab572863e511fdec78582522d7e821c.jpg",
+    description: Faker::Lorem.paragraph,
   )
 end
