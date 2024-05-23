@@ -47,7 +47,7 @@
                                 <li class="menu-toggle" @click="slideBoard">
                                     <div class="select-box">
                                         <div class="small-menu">
-                                            <!-- <img :src="url + user.profile" alt="" /> -->
+                                            <!-- <eimg :src="url + user.profile" alt="" /> -->
                                             <p class="down-icon">
                                                 <svg width="12px" height="12px" viewBox="0 0 15 15">
                                                     <path

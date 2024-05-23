@@ -16,16 +16,18 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
-
     if @post.save
-      render json: @post, status: :created, location: @post
+      render json: @post, status: :created
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: {errors:@post.errors}, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /posts/1
   def update
+    if params[:image].present?
+      @post.remove_image!
+    end
     if @post.update(post_params)
       render json: @post
     else
@@ -48,6 +50,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :category_id, :image, :description)
+      params.permit(:title, :category_id, :image, :description)
     end
 end
