@@ -3,9 +3,16 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.includes(:categories).page(params[:page]).per(2)
 
-    render json: @posts, status: :ok
+    render json: { posts: @posts.as_json(include: :categories),
+                  meta: {
+             current_page: @posts.current_page,
+             next_page: @posts.next_page,
+             prev_page: @posts.prev_page,
+             total_pages: @posts.total_pages,
+             total_count: @posts.total_count,
+           } }, status: :ok
   end
 
   # GET /posts/1
@@ -16,10 +23,14 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
+    category_ids = JSON.parse(post_params[:category_id])
+    category_ids.each do |id|
+      category_post = @post.category_posts.build(category_id: id)
+    end
     if @post.save
       render json: @post, status: :created
     else
-      render json: {errors:@post.errors}, status: :unprocessable_entity
+      render json: { errors: @post.errors }, status: :unprocessable_entity
     end
   end
 
@@ -37,19 +48,20 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
-   if @post.destroy!
-    render json:{'message':'Post is deleted successfuly.'},status: :ok
-   end
+    if @post.destroy!
+      render json: { 'message': "Post is deleted successfuly." }, status: :ok
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.permit(:title, :category_id, :image, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.permit(:title, :category_id, :image, :description)
+  end
 end

@@ -18,12 +18,15 @@
         <div class="category">
           <div class="multiSelect">
             <v-select
-              v-model="postForm.category"
+              v-model="selectedCategories"
               :options="categories"
               label="title"
               placeholder="select category"
               multiple
             ></v-select>
+            <p class="error-message">
+              {{ errors?.category_id ? errors.category_id[0] : "" }}
+            </p>
           </div>
 
           <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
@@ -92,10 +95,11 @@ const imageFile = ref(null);
 const previewImage = ref(null);
 const currentUser = ref(JSON.parse(localStorage.getItem("user")));
 const categories = ref([]);
+const selectedCategories = ref([]);
 const errors = ref(null);
 const postForm = reactive({
   title: "",
-  category: [],
+  category_id: "",
   image: "",
   description: "",
   user_id: currentUser.value.id,
@@ -106,7 +110,6 @@ onMounted(() => {
     .get(`${import.meta.env.VITE_PUBLIC_API_URL}/categories`)
     .then((response) => {
       categories.value = response.data.categories;
-      console.log("categories_value", categories.value);
     });
 });
 
@@ -126,13 +129,16 @@ const handleImageChange = (event) => {
 
 // store Post
 const storePost = async () => {
+  postForm.category_id = JSON.stringify(
+    selectedCategories.value.map((category) => category.id)
+  );
   const config = {
     headers: {
       "content-type": "multipart/form-data",
     },
   };
   await axios
-    .post("http://127.0.0.1:8000/api/posts", postForm, config)
+    .post(`${import.meta.env.VITE_PUBLIC_API_URL}/posts`, postForm, config)
     .then((response) => {
       const Toast = Swal.mixin({
         toast: true,
@@ -154,14 +160,16 @@ const storePost = async () => {
     })
     .catch(function (error) {
       errors.value = error.response.data.errors;
-      console.log(error.response.data.errors);
     });
 };
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Sofia+Sans+Condensed&display=swap");
-
+.category {
+  float: right;
+  width: 100% !important;
+}
 .container {
   width: 1000px;
   margin: 0 auto;

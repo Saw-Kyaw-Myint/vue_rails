@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_095020) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_23_074257) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "category_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_category_posts_on_category_id"
+    t.index ["post_id"], name: "index_category_posts_on_post_id"
   end
 
   create_table "personal_access_tokens", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -45,4 +54,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_095020) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "category_posts", "categories"
+  add_foreign_key "category_posts", "posts"
 end
