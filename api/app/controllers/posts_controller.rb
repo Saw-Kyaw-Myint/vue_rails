@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   def index
     search=params[:search].present? ? params[:search] : '';
     @posts = Post.includes(:categories,:user).search_by_title(search).order(created_at: :desc).page(params[:page]).per(5)
-    latest_post=Post.includes(:user).order(created_at: :desc).limit(3);
+    latest_post=Post.includes(:user).latest_three_data;
     render json: { posts: @posts.as_json(include: { categories: {}, user: {} }),
                   meta: {
                   current_page: @posts.current_page,
@@ -15,7 +15,6 @@ class PostsController < ApplicationController
                   total_count: @posts.total_count,
                  },
                  latestPosts: latest_post.as_json(include: :user)
-
             }, status: :ok
   end
 

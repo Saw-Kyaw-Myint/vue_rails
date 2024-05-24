@@ -10,4 +10,7 @@ class Post < ApplicationRecord
   validates  :description,presence:true
 
   scope  :search_by_title,->(search)  {where('title LIKE ?', "%#{search}%")}
+  def self.latest_three_data(limit = 3)
+    order(created_at: :desc).limit(limit)
+  end
 end

@@ -28,6 +28,7 @@
                         <img
                           :src="url + post.user?.profile"
                           class="create-user-img"
+                          onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
                         />
                       </div>
                       <p class="name">{{ post.user.name }}</p>
@@ -154,7 +155,7 @@
                             alt=""
                             width="100%"
                             height="100%"
-                            onerror="this.onerror=null;this.src='{{ asset('template/people.jfif') }}';"
+                            onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
                           />
                           <p class="name">{{ lpost.user.name }}</p>
                         </a>

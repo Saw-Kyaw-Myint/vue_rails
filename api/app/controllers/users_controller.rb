@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: %i[create show]
+  before_action :authorize_request, except: %i[create show profile]
   before_action :find_user, except: %i[create index]
 
   # GET /users
@@ -38,6 +38,16 @@ class UsersController < ApplicationController
     if @user.destroy
       render json: { message: 'User successfully deleted' }, status: :ok
     end
+  end
+
+  def profile
+    user = User.includes(:posts).find(params[:id])
+    latest_post=Post.includes(:user).latest_three_data;
+    categories=Category.all
+    render json: {user: user.as_json(include: :posts ),
+      latestPosts:latest_post.as_json(include: :user),
+      categories: categories
+      },status: :ok
   end
 
   private
