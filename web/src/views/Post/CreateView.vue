@@ -167,7 +167,6 @@ const storePost = async () => {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Sofia+Sans+Condensed&display=swap");
 .category {
-  float: right;
   width: 100% !important;
 }
 .container {

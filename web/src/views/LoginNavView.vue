@@ -120,7 +120,7 @@ const searchVal = ref();
 const customBoard = ref(false);
 const user = ref();
 const btnGnavi = ref();
-const url = ref("http://127.0.0.1:8000/storage/");
+const url = ref(import.meta.env.VITE_BASE_URL);
 
 watchEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));

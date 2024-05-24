@@ -19,7 +19,7 @@
             <!--post-user-->
             <div v-for="(post, index) in posts" :key="index">
               <div class="post">
-                <!-- <div class="people">
+                <div class="people">
                   <router-link
                     :to="{ name: 'profile', params: { id: post?.user?.id } }"
                   >
@@ -33,7 +33,7 @@
                       <p class="name">{{ post.user.name }}</p>
                     </div>
                   </router-link>
-                </div> -->
+                </div>
 
                 <div class="clearfix">
                   <div class="post-text">
@@ -76,7 +76,7 @@
                         alt=""
                         width="100%"
                         height="100%"
-                        onerror="this.onerror=null;this.src='../assets/template/people.jfif';"
+                        onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/7a/b5/72/7ab572863e511fdec78582522d7e821c.jpg'"
                       />
                     </div>
                   </router-link>
@@ -128,13 +128,14 @@
               </div>
             </div>
             <!--paginate-->
-            <vue-awesome-paginate
-              :total-items="paginatePage.total_pages + 1"
-              :items-per-page="paginatePage.total_pages"
-              :max-pages-shown="paginatePage.total_pages"
-              v-model="currentPage"
-              :on-click="onClickHandler"
-            />
+            <div v-if="paginatePage.total_pages">
+              <vue-awesome-paginate
+                :total-items="paginatePage.total_pages"
+                :items-per-page="1"
+                :max-pages-shown="paginatePage.total_pages"
+                v-model="currentPage"
+              />
+            </div>
           </div>
 
           <div class="category">
@@ -213,9 +214,12 @@ watchEffect(async () => {
   user.value = JSON.parse(localStorage.getItem("user"));
 
   const searchCategory = ref(getroute.query.category || "");
+  const searchTitle = ref(getroute.query.q || "");
   axios
     .get(
-      `${import.meta.env.VITE_PUBLIC_API_URL}/posts?page=${currentPage.value}`,
+      `${import.meta.env.VITE_PUBLIC_API_URL}/posts?page=${
+        currentPage.value
+      }&search=${searchTitle.value}`,
       {
         params: {
           q: getroute.query.q,
@@ -226,7 +230,6 @@ watchEffect(async () => {
       console.log("response", response);
       //   search.value = response.data.search;
       posts.value = response.data.posts;
-      console.log("post ", posts.value);
       latestPosts.value = response.data.latestPosts;
       categories.value = response.data.categories;
       paginatePage.value = response.data.meta;
