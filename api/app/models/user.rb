@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :posts
   mount_uploader :profile, AvatarUploader
   attr_accessor :password_confirmation
   validates :name, presence: { message: "Name can't be blank" }

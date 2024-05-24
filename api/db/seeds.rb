@@ -1,26 +1,34 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
 require "faker"
 
+# Create categories
 10.times do
   Category.create(
-    title: Faker::Device.manufacturer,
+    title: Faker::Device.manufacturer
   )
 end
-# Seed fake users
+
+# Create a user
+user = User.create!(
+  name: 'Saw Kyaw Myint',
+  profile: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957',
+  email: 'saw@gmail.com',
+  password: 'password', # Note: You might want to use a more secure password here
+  bio: 'Hello'
+)
+# Seed fake posts
 10.times do
-  Post.create(
-    title: Faker::Name.name,
-    category_id: Faker::Types.rb_integer,
+  post = user.posts.new(
+    title: Faker::Lorem.sentence,
     image: "https://i.pinimg.com/736x/7a/b5/72/7ab572863e511fdec78582522d7e821c.jpg",
-    description: Faker::Lorem.paragraph,
+    description: Faker::Lorem.paragraph
+  )
+
+  post.save(validate: false)
+
+  # Assign a random category to the post
+  random_category_id = Category.pluck(:id).sample
+  CategoryPost.create!(
+    post_id: post.id,
+    category_id: random_category_id
   )
 end
