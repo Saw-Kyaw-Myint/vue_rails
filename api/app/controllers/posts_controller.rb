@@ -3,24 +3,23 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    search=params[:search].present? ? params[:search] : '';
-    @posts = Post.includes(:categories,:user).search_by_title(search).order(created_at: :desc).page(params[:page]).per(5)
-    latest_post=Post.includes(:user).latest_three_data;
+    search = params[:search].present? ? params[:search] : ""
+    @posts = Post.includes(:categories, :user).search_by_title(search).order(created_at: :desc).page(params[:page]).per(5)
+    latest_post = Post.includes(:user).latest_three_data
     render json: { posts: @posts.as_json(include: { categories: {}, user: {} }),
-                  meta: {
-                  current_page: @posts.current_page,
-                  next_page: @posts.next_page,
-                  prev_page: @posts.prev_page,
-                  total_pages: @posts.total_pages,
-                  total_count: @posts.total_count,
-                 },
-                 latestPosts: latest_post.as_json(include: :user)
-            }, status: :ok
+                   meta: {
+             current_page: @posts.current_page,
+             next_page: @posts.next_page,
+             prev_page: @posts.prev_page,
+             total_pages: @posts.total_pages,
+             total_count: @posts.total_count,
+           },
+                   latestPosts: latest_post.as_json(include: :user) }, status: :ok
   end
 
   # GET /posts/1
   def show
-    render json: {post:@post.as_json(include: :user)}
+    render json: { post: @post.as_json(include: :user) }
   end
 
   # POST /posts
@@ -51,6 +50,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
+    @post.category_posts.destroy_all
     if @post.destroy!
       render json: { 'message': "Post is deleted successfuly." }, status: :ok
     end

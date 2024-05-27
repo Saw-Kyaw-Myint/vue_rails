@@ -33,6 +33,14 @@
                   class="right-header"
                   v-if="currentUser?.id == post.user?.id"
                 >
+                  <router-link
+                    :to="{
+                      name: 'edit',
+                      params: post.id,
+                    }"
+                  >
+                    <span class="edit-btn">Edit</span>
+                  </router-link>
                   <form action="" method="post">
                     <p class="del-btn" @click="postDelete">Delete</p>
                   </form>
@@ -173,7 +181,6 @@ watchEffect(async () => {
   await axios
     .get(`${import.meta.env.VITE_PUBLIC_API_URL}/posts/${route.params.id}`)
     .then((response) => {
-      console.log("response", response);
       post.value = response.data.post;
       relatedPosts.value = response.data.relatedPosts;
       commentCount.value = response.data.commentsTotal;
@@ -206,9 +213,7 @@ const commentList = async () => {
 //delete Post
 const postDelete = async () => {
   await axios
-    .delete(
-      `${import.meta.env.VITE_PUBLIC_API_URL}/api/posts/${route.params.id}`
-    )
+    .delete(`${import.meta.env.VITE_PUBLIC_API_URL}/posts/${route.params.id}`)
     .then((response) => {
       console.log(response.data);
       router.push({ name: "home" });
@@ -237,6 +242,17 @@ const createComment = async () => {
 
 body {
   font-family: "Roboto Condensed", sans-serif;
+}
+
+.edit-btn {
+  display: block;
+  margin: 0 3px 6px 0;
+  padding: 8px 28px;
+  text-align: center;
+  border: none;
+  color: #ffffff;
+  background: #0093ff;
+  border-radius: 20px;
 }
 
 .mg-6 {
@@ -338,7 +354,9 @@ body {
 
 .right-header {
   float: right;
-  width: 80px;
+  display: flex;
+  align-items: center;
+  width: auto;
 }
 
 .right-header p {
