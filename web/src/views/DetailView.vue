@@ -123,7 +123,7 @@
       <div class="line"></div>
 
       <!-- comment  -->
-      <section class="comment">
+      <!-- <section class="comment">
         <h2 class="">
           <span class="comment-count">{{ commentCount }}</span>
         </h2>
@@ -148,7 +148,7 @@
           @listComment="commentList()"
         >
         </ReplyView>
-      </section>
+      </section> -->
     </div>
   </div>
 </template>

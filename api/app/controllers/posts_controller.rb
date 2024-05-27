@@ -19,7 +19,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    render json: { post: @post.as_json(include: :user) }
+    categories = Category.all
+    render json: { post: @post.as_json(include: { user: {}, categories: {} }),
+                   categories: categories }
   end
 
   # POST /posts
@@ -40,8 +42,16 @@ class PostsController < ApplicationController
   def update
     if params[:image].present?
       @post.remove_image!
+      @post.assign_attributes(post_params)
+    else
+      @post.assign_attributes(post_params.except(:image))
     end
-    if @post.update(post_params)
+    @post.category_posts.destroy_all
+    category_ids = JSON.parse(params[:category_id])
+    category_ids.each do |id|
+      category_post = @post.category_posts.build(category_id: id)
+    end
+    if @post.save
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity

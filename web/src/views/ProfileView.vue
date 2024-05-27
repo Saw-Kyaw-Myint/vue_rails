@@ -122,16 +122,10 @@
                 <h2>{{ currentUser?.name }}</h2>
               </div>
 
-              <div
-                class="pf-right-side"
-                v-if="loginUser != null && loginUser.id == route.params.id"
-              >
+              <div class="pf-right-side" v-if="loginUser.id == route.params.id">
                 <div class="edit-update">
                   <p id="ex1" @click="updateProfile = !updateProfile">
                     <a href="#">Edit Profile</a>
-                  </p>
-                  <p id="ex2" @click="changePassword = !changePassword">
-                    <a href="#"> Update Password</a>
                   </p>
                 </div>
               </div>
@@ -228,11 +222,7 @@
                   ></path>
                 </svg>
 
-                <p
-                  class="see-tools"
-                  @click="post.edit = !post.edit"
-                  v-if="loginUser != null && loginUser.id == post.user.id"
-                >
+                <p class="see-tools" @click="post.edit = !post.edit">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                       d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8.25 12h7.5"
@@ -368,13 +358,15 @@ watchEffect(async () => {
 
   const token = localStorage.getItem("token");
   axios
-    .get(`${import.meta.env.VITE_BASE_URL}/users`, {
+    .get(`${import.meta.env.VITE_PUBLIC_API_URL}/users/${route.params.id}`, {
       headers: {
         Authorization: `${token}`,
       },
     })
     .then((response) => {
+      console.log("22222response", response);
       loginUser.value = response.data;
+      console.log("loginUser", loginUser);
 
       changeProfile.name = loginUser.value.name;
       changeProfile.email = loginUser.value.email;
@@ -614,9 +606,9 @@ label {
   align-items: center;
 }
 
-.edit-update p {
-  margin-right: 10px;
-}
+/* .edit-update p {
+  margin-right: 0px;
+} */
 
 .user-edit input {
   width: 100%;
@@ -707,7 +699,6 @@ label {
 
 .pf-right-side {
   float: right;
-  width: 40%;
   margin-top: 12px;
 }
 
