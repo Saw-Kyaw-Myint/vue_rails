@@ -20,7 +20,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    render json: @post
+    render json: {post:@post.as_json(include: :user)}
   end
 
   # POST /posts
@@ -60,7 +60,7 @@ class PostsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.includes(:user).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
