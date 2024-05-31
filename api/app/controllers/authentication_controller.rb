@@ -4,15 +4,10 @@ class AuthenticationController < ApplicationController
 
   # POST /auth/login
   def login
-    @validate = {
-      email: [params[:email].present? ? "" : "Email is required"],
-      password: [params[:password].present? ? "" : "Password is required"],
-    }
-
-    unless params[:email].present? || params[:password].present?
-      render json: { errors: @validate }, status: :unprocessable_entity and return
+    @user = User.new(login_params)
+    unless @user.valid?
+         render json: { errors: @user.errors }, status: :unprocessable_entity and return
     end
-
     @user = User.find_by_email(params[:email])
     if @user&.authenticate(params[:password])
       render_login_response(@user)
@@ -26,7 +21,6 @@ class AuthenticationController < ApplicationController
     @user = User.new(signup_params)
     if @user.valid?(:signup)
       @user.save
-      # Call the private method to log in the user after signing up
       render_login_response(@user)
     else
       render json: { errors: @user.errors }, status: :unprocessable_entity
