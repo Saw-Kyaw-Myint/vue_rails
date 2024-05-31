@@ -47,7 +47,7 @@
                                 <li class="menu-toggle" @click="slideBoard">
                                     <div class="select-box">
                                         <div class="small-menu">
-                                            <img :src="url + user?.profile" alt="" />
+                                            <img :src="url + user?.profile?.url" alt="" />
                                             <p class="down-icon">
                                                 <svg width="12px" height="12px" viewBox="0 0 15 15">
                                                     <path
@@ -118,24 +118,26 @@ import axios from "axios";
 const router = useRouter();
 const searchVal = ref();
 const customBoard = ref(false);
-const user = ref();
+const user = ref(null);
 const btnGnavi = ref();
 const url = ref(import.meta.env.VITE_BASE_URL);
 
 watchEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token=user.token
-    axios
-        .get(`${import.meta.env.VITE_PUBLIC_API_URL}/users/${user.id}`, {
-            headers: {
-                Authorization: `${token}`,
-            },
-        })
-        .then((response) => {
-            console.log('response',response)
-            localStorage.setItem("user", JSON.stringify(response.data));
-        });
-    user.value = JSON.parse(localStorage.getItem("user")) ?? '';
+    user.value= JSON.parse(localStorage.getItem("user"));
+    // const token=user.token
+
+    // axios
+    //     .get(`${import.meta.env.VITE_PUBLIC_API_URL}/users/${user.id}`, {
+    //         headers: {
+    //             Authorization: `${token}`,
+    //         },
+    //     })
+    //     .then((response) => {
+    //         console.log('response',response)
+    //         localStorage.setItem("user", JSON.stringify(response.data));
+    //         user.value = JSON.parse(localStorage.getItem("user"));
+    //         console.log('fafoafjoja',user.value)
+    //     });
 });
 
 //slide custom board
@@ -156,12 +158,12 @@ const postSearch = () => {
 //logout
 
 const logout = async () => {
-    const user =JSON.parse(localStorage.getItem('user'));
+    const token =localStorage.getItem('token');
     console.log(user)
     await axios.delete(`${import.meta.env.VITE_PUBLIC_API_URL}/auth/logout/${user.id}`,
        {
         headers: {
-           'Authorization': user.token
+           'Authorization': token
         }
     }
     ).then(response=>{

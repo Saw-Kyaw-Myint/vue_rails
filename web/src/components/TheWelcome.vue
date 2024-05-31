@@ -26,7 +26,7 @@
                     <div class="clearfix">
                       <div class="profile-img">
                         <img
-                          :src="url + post.user?.profile"
+                          :src="url + post.user?.profile?.url"
                           class="create-user-img"
                           onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
                         />
@@ -151,7 +151,7 @@
                       <div class="list-latest-profile">
                         <a href="#">
                           <img
-                            :src="url + lpost.user.profile"
+                            :src="url + lpost.user.profile.url"
                             alt=""
                             width="100%"
                             height="100%"

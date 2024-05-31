@@ -20,7 +20,7 @@
           onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
         />
         <img
-          :src="url + loginUser?.profile"
+          :src="url + loginUser?.profile?.url"
           v-else
           id="output"
           onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
@@ -114,7 +114,7 @@
             <div class="clearfix">
               <div class="pf-left-side">
                 <img
-                  :src="url + currentUser.profile"
+                  :src="url + currentUser?.profile?.url"
                   alt=""
                   class="pfl-profile"
                   onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
@@ -122,7 +122,10 @@
                 <h2>{{ currentUser?.name }}</h2>
               </div>
 
-              <div class="pf-right-side" v-if="loginUser.id == route.params.id">
+              <div
+                class="pf-right-side"
+                v-if="loginUser?.id == route.params?.id"
+              >
                 <div class="edit-update">
                   <p id="ex1" @click="updateProfile = !updateProfile">
                     <a href="#">Edit Profile</a>
@@ -158,7 +161,7 @@
                 <div class="pls-myPost">
                   <p>
                     <img
-                      :src="url + post?.user?.profile"
+                      :src="url + post?.user?.profile.url"
                       alt=""
                       onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
                     />
@@ -199,7 +202,7 @@
                   >
                     <div class="prof-right-post">
                       <img
-                        :src="url + post?.image.url"
+                        :src="url + post?.profile?.url"
                         alt=""
                         onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/7a/b5/72/7ab572863e511fdec78582522d7e821c.jpg'"
                       />
@@ -266,7 +269,7 @@
                   >
                     <div class="list-latest-profile">
                       <img
-                        :src="url + latestpost.user.profile"
+                        :src="url + latestpost.user.profile.url"
                         onerror="this.onerror=null;this.src='https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSYvFWEjX4WN-4SJuogTJ1Jsolstp-CFXZEm4Hp6MiWPengGwUugw_pGIR6KdjOCOz5WFuNH1EP6n2S_3ZRkEkib4F6A31Uus7e9nSBeDkZquFxlDLLbkfzB-Qchb5wUHJryKVy2PlRFELVZLCAyNB5JwoI.jpg?r=957'"
                       />
                       <p class="name">{{ latestpost?.user?.name }}</p>
@@ -317,7 +320,7 @@ const errors = ref(null);
 const passwordErrors = ref(null);
 const url = ref(import.meta.env.VITE_BASE_URL);
 const changeProfile = reactive({
-  image: "",
+  profile: "",
   name: "",
   email: "",
   user_id: "",
@@ -335,7 +338,7 @@ const handleImageChange = (event) => {
   const file = event.target.files[0];
   if (file) {
     imageFile.value = file;
-    changeProfile.image = file;
+    changeProfile.profile = file;
     const reader = new FileReader();
     reader.onload = (e) => {
       previewImage.value = e.target.result;
@@ -395,28 +398,27 @@ const postDelete = async (id) => {
 // update user detail
 const updateUserDetail = async () => {
   const token = localStorage.getItem("token");
+  alert(token);
   const config = {
     headers: {
       "content-type": "multipart/form-data",
+      Authorization: `${token}`,
     },
   };
   axios
-    .post(
-      `${import.meta.env.VITE_PUBLIC_API_URL}/api/userProfile`,
+    .put(
+      `${import.meta.env.VITE_PUBLIC_API_URL}/profile/${currentUser.value.id}`,
       changeProfile,
-      config,
-      {
-        headers: {
-          Authorization: `${token}`,
-        },
-      }
+      config
     )
     .then((response) => {
+      console.log("user update response", response);
       updateCount.value++;
       router.push({ name: "profile", query: { update: updateCount.value } });
       updateProfile.value = false;
     })
     .catch(function (error) {
+      console.log("error", error);
       errors.value = error.response.data.errors;
     });
 };
@@ -424,6 +426,7 @@ const updateUserDetail = async () => {
 // update password
 const passwordUpdate = async () => {
   const token = localStorage.getItem("token");
+
   axios
     .post(
       `${import.meta.env.VITE_PUBLIC_API_URL}/changePassword/update`,
