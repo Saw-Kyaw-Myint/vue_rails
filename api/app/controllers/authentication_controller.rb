@@ -1,4 +1,5 @@
 class AuthenticationController < ApplicationController
+
   before_action :authorize_request, except: [:login, :signup]
 
   # POST /auth/login
@@ -23,7 +24,8 @@ class AuthenticationController < ApplicationController
   # POST /auth/signup
   def signup
     @user = User.new(signup_params)
-    if @user.save
+    if @user.valid?(:signup)
+      @user.save
       # Call the private method to log in the user after signing up
       render_login_response(@user)
     else

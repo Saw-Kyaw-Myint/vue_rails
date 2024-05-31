@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    @user.profile= params[:profile]
+    @user.profile = params[:profile]
     if @user.save
       render json: @user, status: :created
     else
@@ -36,26 +36,25 @@ class UsersController < ApplicationController
   # DELETE /users/{id}
   def destroy
     if @user.destroy
-      render json: { message: 'User successfully deleted' }, status: :ok
+      render json: { message: "User successfully deleted" }, status: :ok
     end
   end
 
   def profile
     user = User.includes(:posts).find(params[:id])
-    latest_post=Post.includes(:user).latest_three_data;
-    categories=Category.all
-    render json: {user: user.as_json(include: :posts ),
-      latestPosts:latest_post.as_json(include: :user),
-      categories: categories
-      },status: :ok
+    latest_post = Post.includes(:user).latest_three_data
+    categories = Category.all
+    render json: { user: user.as_json(include: { posts: { include: :user } }),
+                   latestPosts: latest_post.as_json(include: :user),
+                   categories: categories }, status: :ok
   end
 
   private
 
   def find_user
     @user = User.find_by!(id: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { errors: 'User not found' }, status: :not_found
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: "User not found" }, status: :not_found
   end
 
   def user_params

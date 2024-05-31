@@ -17,7 +17,8 @@ Rails.application.routes.draw do
     patch "users/:id", to: "users#update"
     put "users/:id", to: "users#update"
     delete "users/:id", to: "users#destroy"
-    get  "profile/:id", to: "users#profile"
+    get "profile/:id", to: "users#profile"
+    put "profile/:id", to: "users#update"
 
     # categories
     get "categories", to: "category#index"
