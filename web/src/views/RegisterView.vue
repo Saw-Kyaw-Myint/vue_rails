@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="signup container">
     <div class="login-whole">
       <h2>Sign Up</h2>
       <form @submit.prevent="register" method="POST">
-        <div class="input-group">
+        <div class="signup-input-group">
           <div class="left-form">
             <div class="form-group">
               <label for="name">Name</label>
@@ -122,17 +122,12 @@ body {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-.container {
+.signup .container {
   width: 1100px;
   margin: 0 auto;
 }
 
-.contianer {
-  width: 1000px;
-  margin: 0 aut0;
-}
-
-.error-message {
+.signup .error-message {
   display: inline-block;
   color: #ff0000;
   font-size: 16px;
@@ -143,7 +138,7 @@ body {
   position: absolute;
 }
 
-.login-whole {
+.signup .login-whole {
   margin: 80px;
   margin-top: 140px;
   border: 2px solid #cbcbcb;
@@ -151,33 +146,33 @@ body {
   padding: 30px;
 }
 
-.login-whole h2 {
+.signup .login-whole h2 {
   font-size: 25px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-.input-group {
+.signup-input-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.form-group {
+.signup .form-group {
   margin-bottom: 34px;
   position: relative;
 }
 
-.left-form {
+.signup .left-form {
   margin-right: 20px;
   width: 100%;
 }
 
-.right-form {
+.signup .right-form {
   width: 100%;
 }
 
-label {
+.signup label {
   font-size: 20px;
   display: inline-block;
   margin-bottom: 10px;
@@ -188,7 +183,7 @@ label {
   font-size: 13px;
 }
 
-input {
+.signup input {
   width: 100%;
   padding: 9px;
   outline: none;
@@ -196,12 +191,12 @@ input {
   border-radius: 5px;
 }
 
-.bio-input {
+.signup .bio-input {
   margin-bottom: 30px;
   position: relative;
 }
 
-.signUp {
+.signup .signUp {
   padding: 8px 15px;
   border: none;
   border-radius: 10px;
@@ -242,7 +237,7 @@ input {
     width: 100%;
   }
 
-  .right-form {
+  .signup .right-form {
     width: 100%;
   }
 
@@ -299,7 +294,7 @@ input {
     width: 100%;
   }
 
-  .right-form {
+  .signup .right-form {
     width: 100%;
   }
 
