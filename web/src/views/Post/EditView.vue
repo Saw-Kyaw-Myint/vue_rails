@@ -108,7 +108,6 @@ onMounted(() => {
   axios
     .get(`${import.meta.env.VITE_PUBLIC_API_URL}/posts/${route.params.id}`)
     .then((response) => {
-      console.log("response", response.data);
       categories.value = response.data.categories;
       post.value = response.data.post;
       postForm.title = response.data.post.title;
@@ -149,7 +148,6 @@ const updatePost = async () => {
       config
     )
     .then((response) => {
-      console.log("response", response);
       const Toast = Swal.mixin({
         toast: true,
         position: "top",

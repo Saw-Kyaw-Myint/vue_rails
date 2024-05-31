@@ -228,7 +228,6 @@ watchEffect(async () => {
       }
     )
     .then((response) => {
-      console.log("response", response);
       //   search.value = response.data.search;
       posts.value = response.data.posts;
       latestPosts.value = response.data.latestPosts;

@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
   # POST /auth/login
   def login
     @user = User.new(login_params)
-    unless @user.valid?
+    unless @user.valid?(:login)
          render json: { errors: @user.errors }, status: :unprocessable_entity and return
     end
     @user = User.find_by_email(params[:email])

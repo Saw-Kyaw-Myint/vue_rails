@@ -9,9 +9,6 @@ let Authuser = ref();
 const Auth = reactive({
   data: localStorage.getItem("user") ? true : false,
 });
-onMounted(() => {
-  // console.log("hello");
-});
 </script>
 
 <template>

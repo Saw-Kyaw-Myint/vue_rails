@@ -109,7 +109,6 @@ const register = async () => {
     })
     .catch(function (error) {
       errors.value = error.response.data.errors;
-      console.log("error", errors.value);
     });
 };
 

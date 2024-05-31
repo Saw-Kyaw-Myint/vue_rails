@@ -111,7 +111,6 @@ const updateComment = async (id, postId, comment) => {
 
 //update reply
 const updateReply = async (id, postId, patent_id, comment) => {
-	console.log(postId);
 	updateReplyForm.comment_id = id
 	updateReplyForm.comment = comment
 	updateReplyForm.post_id = postId,

@@ -58,7 +58,6 @@ const login = async () => {
   await axios
     .post(`${import.meta.env.VITE_PUBLIC_API_URL}/auth/login`, form)
     .then((res) => {
-      console.log("res", res);
       if (res.status == 200) {
         const Toast = Swal.mixin({
           toast: true,
@@ -84,16 +83,13 @@ const login = async () => {
       }
     })
     .catch(function (error) {
-      console.log(error);
       errors.value = error.response.data.errors;
     });
 };
 
 watchEffect(() => {
   Auth.value = localStorage.getItem("auth");
-  console.log(Auth.value);
   if (Auth.value === "true") {
-    console.log("hello test");
     localStorage.setItem("auth", false);
     Auth.value = localStorage.getItem("auth");
     location.reload();

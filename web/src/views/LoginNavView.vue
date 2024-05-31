@@ -159,7 +159,6 @@ const postSearch = () => {
 
 const logout = async () => {
     const token =localStorage.getItem('token');
-    console.log(user)
     await axios.delete(`${import.meta.env.VITE_PUBLIC_API_URL}/auth/logout/${user.id}`,
        {
         headers: {
@@ -167,7 +166,6 @@ const logout = async () => {
         }
     }
     ).then(response=>{
-      console.log('response',response)
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.setItem("auth", false);

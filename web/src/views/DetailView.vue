@@ -215,7 +215,6 @@ const postDelete = async () => {
   await axios
     .delete(`${import.meta.env.VITE_PUBLIC_API_URL}/posts/${route.params.id}`)
     .then((response) => {
-      console.log(response.data);
       router.push({ name: "home" });
     });
 };

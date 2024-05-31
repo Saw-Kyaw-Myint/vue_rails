@@ -351,7 +351,6 @@ watchEffect(async () => {
   await axios
     .get(`${import.meta.env.VITE_PUBLIC_API_URL}/profile/${route.params.id}`)
     .then((response) => {
-      console.log(response.data);
       currentUser.value = response.data.user;
       updatePassword.user_id = response.data.user.id;
       categories.value = response.data.categories;
@@ -367,9 +366,7 @@ watchEffect(async () => {
       },
     })
     .then((response) => {
-      console.log("22222response", response);
       loginUser.value = response.data;
-      console.log("loginUser", loginUser);
 
       changeProfile.name = loginUser.value.name;
       changeProfile.email = loginUser.value.email;
@@ -378,7 +375,6 @@ watchEffect(async () => {
       localStorage.setItem("user", JSON.stringify(response.data));
     });
 
-  console.log(loginUser.value);
 });
 
 // search category
@@ -412,13 +408,11 @@ const updateUserDetail = async () => {
       config
     )
     .then((response) => {
-      console.log("user update response", response);
       updateCount.value++;
       router.push({ name: "profile", query: { update: updateCount.value } });
       updateProfile.value = false;
     })
     .catch(function (error) {
-      console.log("error", error);
       errors.value = error.response.data.errors;
     });
 };
@@ -438,7 +432,6 @@ const passwordUpdate = async () => {
       }
     )
     .then((response) => {
-      console.log(response.data);
       router.push({ name: "profile" });
       updatePassword.current_password = "";
       updatePassword.new_password = "";
